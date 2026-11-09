@@ -38,6 +38,7 @@ JOBS = [
     ("work-nude-short", "IMG_3104.JPG", None, [400, 700, 960]),
     ("work-milky", "IMG_7552.JPG", None, [400, 700, 960]),
     ("work-pedicure", "IMG_8353.JPG", None, [400, 700, 960]),
+    ("work-men", "IMG_3201.JPG", None, [400, 700, 960]),
     ("work-ombre", "IMG_9205.HEIC", None, [400, 700, 1200]),
     ("work-shimmer", "IMG_4317.PNG", (0.007, 0.0693, 0.993, 0.4765), [400, 700, 1100]),
     ("before-shimmer", "IMG_4317.PNG", (0.007, 0.4805, 0.993, 0.888), [400, 700, 1100]),
