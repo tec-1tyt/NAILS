@@ -398,7 +398,7 @@ html.has-cursor .ba__range { cursor: none; }
 .form__row { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 18px; }
 .picker__state { padding: 14px 4px; color: var(--muted); font-size: 14px; }
 .picker__state .link-u { margin-left: 6px; }
-.days { position: relative; display: flex; align-items: center; gap: 8px; }
+.days { position: relative; display: flex; align-items: center; gap: 8px; min-width: 0; max-width: 100%; }
 .days__scroller { display: flex; gap: 8px; overflow-x: auto; scroll-snap-type: x mandatory; scrollbar-width: none; padding: 4px 2px; flex: 1; min-width: 0; -webkit-mask: linear-gradient(90deg, transparent, #000 16px, #000 calc(100% - 16px), transparent); mask: linear-gradient(90deg, transparent, #000 16px, #000 calc(100% - 16px), transparent); }
 .days__scroller::-webkit-scrollbar { display: none; }
 .days__nav { flex: 0 0 40px; height: 40px; display: grid; place-items: center; border-radius: 50%; border: 1px solid var(--line-2); color: var(--accent); transition: background-color 0.3s, border-color 0.3s, opacity 0.3s; }

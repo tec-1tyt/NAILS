@@ -185,7 +185,7 @@ ul, ol { list-style: none; }
 }
 
 /* ===== Поля форм ===== */
-.field { position: relative; display: grid; gap: 8px; }
+.field { position: relative; display: grid; grid-template-columns: minmax(0, 1fr); gap: 8px; min-width: 0; }
 .field__label { font-size: 13px; font-weight: 600; letter-spacing: 0.04em; color: var(--muted); }
 .field__opt { font-weight: 400; color: var(--dim); margin-left: 6px; }
 .field__input {
