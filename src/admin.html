@@ -1,0 +1,115 @@
+<!doctype html>
+<html lang="uk">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Адмінка — {{brand}}</title>
+  <meta name="robots" content="noindex, nofollow">
+  <meta name="theme-color" content="#09090a">
+  <link rel="icon" href="{{base}}favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="{{css}}">
+  <script type="module" src="{{js}}"></script>
+</head>
+<body>
+  <!-- Вхід -->
+  <main class="login" data-view="login" hidden>
+    <form class="login__card glow-border" data-login novalidate>
+      <p class="brand"><span class="brand__word">nailsby</span><span class="brand__dot">.nstjky</span></p>
+      <h1 class="login__title">Вхід в <em>адмінку</em></h1>
+      <div class="field">
+        <label class="field__label" for="a-pass">Пароль</label>
+        <input class="field__input" id="a-pass" name="password" type="password" autocomplete="current-password" required>
+      </div>
+      <p class="note note--err" role="alert" data-login-err></p>
+      <button class="btn btn--primary btn--block" type="submit"><span class="btn__label">Увійти</span><span class="btn__spinner" aria-hidden="true"></span></button>
+      <a class="login__back" href="{{base}}">← на сайт</a>
+    </form>
+  </main>
+
+  <!-- Панель -->
+  <div class="app" data-view="app" hidden>
+    <header class="top">
+      <div class="top__inner">
+        <a class="brand" href="{{base}}" target="_blank" rel="noopener"><span class="brand__word">nailsby</span><span class="brand__dot">.nstjky</span></a>
+        <nav class="tabs" role="tablist" aria-label="Розділи адмінки">
+          <button class="tab is-active" type="button" role="tab" id="t-bookings" aria-controls="p-bookings" aria-selected="true">Записи <span class="tab__badge" data-new-count hidden></span></button>
+          <button class="tab" type="button" role="tab" id="t-schedule" aria-controls="p-schedule" aria-selected="false" tabindex="-1">Графік</button>
+          <button class="tab" type="button" role="tab" id="t-off" aria-controls="p-off" aria-selected="false" tabindex="-1">Вихідні</button>
+        </nav>
+        <button class="btn btn--ghost btn--sm" type="button" data-logout><span class="btn__label">Вийти</span></button>
+      </div>
+    </header>
+
+    <main class="wrap">
+      <!-- Записи -->
+      <section class="panel" id="p-bookings" role="tabpanel" aria-labelledby="t-bookings">
+        <div class="panel__head">
+          <h1 class="panel__title">Записи</h1>
+          <div class="seg" role="group" aria-label="Які записи показати">
+            <button class="seg__btn is-active" type="button" data-scope="upcoming" aria-pressed="true">Майбутні</button>
+            <button class="seg__btn" type="button" data-scope="past" aria-pressed="false">Минулі</button>
+            <button class="seg__btn" type="button" data-scope="cancelled" aria-pressed="false">Скасовані</button>
+            <button class="seg__btn" type="button" data-scope="all" aria-pressed="false">Усі</button>
+          </div>
+          <button class="btn btn--ghost btn--sm" type="button" data-refresh><span class="btn__label">Оновити</span></button>
+        </div>
+        <div class="list" data-bookings aria-live="polite"><p class="empty">Завантажую…</p></div>
+      </section>
+
+      <!-- Графік -->
+      <section class="panel" id="p-schedule" role="tabpanel" aria-labelledby="t-schedule" hidden>
+        <div class="panel__head">
+          <h1 class="panel__title">Робочий графік</h1>
+          <p class="panel__note">Клієнтки бачать на сайті лише слоти в межах цих годин. Уже створені записи не змінюються.</p>
+        </div>
+        <form class="sched" data-schedule novalidate>
+          <div class="week" data-week></div>
+          <div class="opts">
+            <div class="field">
+              <label class="field__label" for="s-slot">Тривалість слоту</label>
+              <div class="select"><select class="field__input" id="s-slot" name="slotMinutes"></select></div>
+            </div>
+            <div class="field">
+              <label class="field__label" for="s-lead">Мінімум до запису</label>
+              <div class="select"><select class="field__input" id="s-lead" name="leadMinutes"></select></div>
+            </div>
+            <div class="field">
+              <label class="field__label" for="s-horizon">Запис відкритий на (днів)</label>
+              <input class="field__input" id="s-horizon" name="horizonDays" type="number" min="1" max="365" inputmode="numeric">
+            </div>
+            <div class="field">
+              <label class="field__label" for="s-max">Макс. активних записів на номер</label>
+              <input class="field__input" id="s-max" name="maxActivePerPhone" type="number" min="1" max="20" inputmode="numeric">
+            </div>
+          </div>
+          <p class="note note--err" role="alert" data-sched-err></p>
+          <button class="btn btn--primary" type="submit"><span class="btn__label">Зберегти графік</span><span class="btn__spinner" aria-hidden="true"></span></button>
+        </form>
+      </section>
+
+      <!-- Вихідні -->
+      <section class="panel" id="p-off" role="tabpanel" aria-labelledby="t-off" hidden>
+        <div class="panel__head">
+          <h1 class="panel__title">Вихідні та відпустки</h1>
+          <p class="panel__note">У ці дні запис на сайті закритий. Наявні записи на ці дати не скасовуються автоматично.</p>
+        </div>
+        <form class="off-form" data-off-form novalidate>
+          <div class="field">
+            <label class="field__label" for="o-date">Дата</label>
+            <input class="field__input" id="o-date" name="date" type="date" required>
+          </div>
+          <div class="field">
+            <label class="field__label" for="o-note">Примітка <span class="field__opt">необовʼязково</span></label>
+            <input class="field__input" id="o-note" name="note" type="text" maxlength="80" placeholder="Відпустка, свято…">
+          </div>
+          <button class="btn btn--primary" type="submit"><span class="btn__label">Додати</span></button>
+        </form>
+        <p class="note note--err" role="alert" data-off-err></p>
+        <ul class="off-list" data-off-list></ul>
+      </section>
+    </main>
+  </div>
+
+  <div class="toast" role="status" aria-live="polite" data-toast></div>
+</body>
+</html>

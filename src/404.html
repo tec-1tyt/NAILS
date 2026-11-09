@@ -1,0 +1,52 @@
+<!doctype html>
+<html lang="uk">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Сторінку не знайдено — {{brand}}</title>
+  <meta name="robots" content="noindex">
+  <meta name="theme-color" content="#09090a">
+  <link rel="icon" href="{{base}}favicon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="{{base}}apple-touch-icon.png">
+  <link rel="preload" href="{{base}}fonts/cormorant-garamond-cyrillic-wght-normal.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="{{css}}">
+  <script type="module" src="{{js}}"></script>
+</head>
+<body>
+  <div class="progress" aria-hidden="true"><span></span></div>
+  <div class="cursor" aria-hidden="true"><span class="cursor__drop"><span class="cursor__label">Дивитись</span></span><span class="cursor__dot"></span></div>
+
+  <header class="header" data-header>
+    <div class="header__inner container">
+      <a class="logo" href="{{base}}" aria-label="{{brand}} — на головну">
+        <span class="logo__word">nailsby</span><span class="logo__dot">.nstjky</span>
+      </a>
+      <a class="btn btn--primary btn--sm magnetic" href="{{base}}#booking"><span class="btn__label">Записатись</span></a>
+    </div>
+  </header>
+
+  <main id="main" class="nf">
+    <div class="hero__glow hero__glow--a" aria-hidden="true"></div>
+    <div class="container nf__grid">
+      <div>
+        <p class="eyebrow" data-reveal>Помилка 404</p>
+        <p class="nf__code outline-text" aria-hidden="true" data-reveal>404</p>
+        <h1 class="nf__title" data-reveal>Цієї сторінки немає, <em>а манікюр — є</em></h1>
+        <p class="nf__text" data-reveal>Можливо, посилання застаріло або в адресі помилка. Поверніться на головну чи одразу оберіть зручний час.</p>
+        <div class="nf__actions" data-reveal>
+          <a class="btn btn--primary magnetic" href="{{base}}#booking"><span class="btn__label">Записатись онлайн</span>{{icon_arrow}}</a>
+          <a class="btn btn--ghost magnetic" href="{{base}}"><span class="btn__label">На головну</span></a>
+        </div>
+      </div>
+      <div class="nf__photo" data-reveal>
+        <div class="arch" data-tilt>
+          <div class="arch__frame">{{pic_404}}</div>
+          <span class="arch__glare" aria-hidden="true"></span>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <script type="application/json" id="site-data">{{siteData}}</script>
+</body>
+</html>

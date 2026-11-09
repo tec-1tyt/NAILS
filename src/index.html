@@ -1,0 +1,466 @@
+<!doctype html>
+<html lang="uk">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  {{robotsMeta}}
+  <title>{{title}}</title>
+  <meta name="description" content="{{description}}">
+  <link rel="canonical" href="{{url}}/">
+  <meta name="theme-color" content="#09090a">
+  <meta name="color-scheme" content="dark">
+  <meta property="og:type" content="website">
+  <meta property="og:locale" content="uk_UA">
+  <meta property="og:site_name" content="{{brand}}">
+  <meta property="og:title" content="{{title}}">
+  <meta property="og:description" content="{{description}}">
+  <meta property="og:url" content="{{url}}/">
+  <meta property="og:image" content="{{url}}/img/og.jpg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta name="twitter:card" content="summary_large_image">
+  <link rel="icon" href="{{base}}favicon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="{{base}}apple-touch-icon.png">
+  <link rel="manifest" href="{{base}}site.webmanifest">
+  {{preloads}}
+  <link rel="stylesheet" href="{{css}}">
+  <script type="module" src="{{js}}"></script>
+  <script type="application/ld+json">{{jsonld}}</script>
+</head>
+<body>
+  <a class="skip" href="#main">Перейти до змісту</a>
+
+  <div class="preloader" aria-hidden="true">
+    <div class="preloader__mark">
+      <span class="preloader__word">nailsby</span><span class="preloader__dot">.nstjky</span>
+    </div>
+    <div class="preloader__bar"><span></span></div>
+  </div>
+
+  <div class="progress" aria-hidden="true"><span></span></div>
+  <div class="cursor" aria-hidden="true"><span class="cursor__drop"><span class="cursor__label">Дивитись</span></span><span class="cursor__dot"></span></div>
+
+  <header class="header" data-header>
+    <div class="header__inner container">
+      <a class="logo" href="#top" aria-label="{{brand}} — на початок">
+        <span class="logo__word">nailsby</span><span class="logo__dot">.nstjky</span>
+      </a>
+      <nav class="nav" aria-label="Головне меню">
+        <ul class="nav__list">
+          <li><a class="nav__link" href="#about">Про мене</a></li>
+          <li><a class="nav__link" href="#services">Послуги</a></li>
+          <li><a class="nav__link" href="#works">Роботи</a></li>
+          <li><a class="nav__link" href="#faq">FAQ</a></li>
+          <li><a class="nav__link" href="#contacts">Контакти</a></li>
+        </ul>
+      </nav>
+      <a class="btn btn--primary btn--sm header__cta magnetic" href="#booking"><span class="btn__label">Записатись</span></a>
+      <button class="burger" type="button" aria-expanded="false" aria-controls="menu" aria-label="Відкрити меню">
+        <span></span><span></span>
+      </button>
+    </div>
+  </header>
+
+  <div class="menu" id="menu" hidden>
+    <div class="menu__bg"></div>
+    <nav class="menu__nav container" aria-label="Мобільне меню">
+      <a class="menu__link" href="#about"><span class="menu__num">01</span>Про мене</a>
+      <a class="menu__link" href="#services"><span class="menu__num">02</span>Послуги</a>
+      <a class="menu__link" href="#works"><span class="menu__num">03</span>Роботи</a>
+      <a class="menu__link" href="#faq"><span class="menu__num">04</span>FAQ</a>
+      <a class="menu__link" href="#contacts"><span class="menu__num">05</span>Контакти</a>
+      <a class="btn btn--primary menu__cta" href="#booking"><span class="btn__label">Записатись онлайн</span></a>
+      <a class="menu__insta" href="{{instagram}}" target="_blank" rel="noopener">{{instagramHandle}}</a>
+    </nav>
+  </div>
+
+  <main id="main" tabindex="-1">
+    <!-- 1. HERO -->
+    <section class="hero" id="top" aria-labelledby="hero-title">
+      <div class="hero__glow hero__glow--a" aria-hidden="true"></div>
+      <div class="hero__glow hero__glow--b" aria-hidden="true"></div>
+
+      <div class="hero__media" data-hero-media>
+        <div class="hero__mask">
+          <div class="hero__mask-in">
+            <div class="hero__pic">{{pic_hero}}</div>
+          </div>
+        </div>
+        <svg class="hero__blob" viewBox="0 0 600 600" aria-hidden="true" focusable="false">
+          <path data-blob="0" d="M421,95 C495,140 545,230 530,320 C515,410 445,500 345,525 C245,550 135,505 90,415 C45,325 70,215 140,145 C210,75 347,50 421,95 Z"/>
+        </svg>
+      </div>
+
+      <div class="hero__content container">
+        <p class="eyebrow hero__eyebrow" data-hero-fade>Манікюр і педикюр · Praha&nbsp;3</p>
+        <h1 class="hero__title" id="hero-title">
+          <span class="line"><span class="line__in">Манікюр,</span></span>
+          <span class="line"><span class="line__in"><em>який хочеться</em></span></span>
+          <span class="line"><span class="line__in">роздивлятись</span></span>
+        </h1>
+        <p class="hero__lead" data-hero-fade>Акуратна кутикула, рівне покриття і форма, що пасує саме вашим рукам. Нюд, молочний френч, делікатний блиск.</p>
+        <div class="hero__actions" data-hero-fade>
+          <a class="btn btn--primary magnetic" href="#booking"><span class="btn__label">Записатись онлайн</span>{{icon_arrow}}</a>
+          <a class="btn btn--ghost magnetic" href="#works"><span class="btn__label">Дивитись роботи</span></a>
+        </div>
+        <ul class="hero__meta" data-hero-fade>
+          <li><span class="hero__meta-k">від</span> 650 Kč</li>
+          <li>{{address}}</li>
+          <li><a href="{{instagram}}" target="_blank" rel="noopener" class="link-u">{{instagramHandle}}</a></li>
+        </ul>
+      </div>
+
+      <p class="hero__side" aria-hidden="true">Manikérka a nehtová designérka · 69-024-H</p>
+      <a class="hero__scroll" href="#about" aria-label="Гортати до розділу Про мене"><span class="hero__scroll-line"></span>Гортайте</a>
+    </section>
+
+    <!-- MARQUEE -->
+    <div class="marquee" aria-hidden="true">
+      <div class="marquee__track">{{marquee}}</div>
+    </div>
+
+    <!-- 2. ABOUT -->
+    <section class="about section" id="about" tabindex="-1" aria-labelledby="about-title">
+      <div class="container about__grid">
+        <div class="about__media" data-reveal>
+          <div class="arch tilt" data-tilt>
+            <div class="arch__frame">{{pic_about}}</div>
+            <span class="arch__glare" aria-hidden="true"></span>
+          </div>
+          <div class="badge glass float" aria-hidden="true">
+            <span class="badge__k">Osvědčení</span>
+            <span class="badge__v">profesní kvalifikace</span>
+            <span class="badge__code">69-024-H</span>
+          </div>
+          <span class="about__num outline-text" aria-hidden="true">01</span>
+        </div>
+
+        <div class="about__text">
+          <p class="eyebrow" data-reveal>Про майстриню</p>
+          <h2 class="h2" id="about-title" data-lines>
+            <span class="line"><span class="line__in">Привіт, я</span></span>
+            <span class="line"><span class="line__in"><em>Настя</em></span></span>
+          </h2>
+          <div class="about__copy">
+            <p data-reveal>Мене звати {{masterFullName}}. Я роблю манікюр і педикюр у Празі й маю офіційну чеську кваліфікацію <span class="nowrap">«{{qualification}}»</span>.</p>
+            <p data-reveal>У портфоліо переважають нюд, молочний френч і делікатний блиск. Працюю з гель-лаком, зміцненням гелем і системою IQ BEAUTY.</p>
+          </div>
+          <ul class="counters" data-reveal>{{counters}}</ul>
+          <figure class="about__cert glass" data-reveal>
+            <div class="about__cert-pic">{{pic_studio}}</div>
+            <figcaption><span class="about__cert-date">28.02.2026</span> День іспиту. Сертифікат «{{qualification}}» уже в руках.</figcaption>
+          </figure>
+        </div>
+      </div>
+    </section>
+
+    <!-- 3. SERVICES -->
+    <section class="services section" id="services" tabindex="-1" aria-labelledby="services-title">
+      <div class="container">
+        <div class="section-head">
+          <div>
+            <p class="eyebrow" data-reveal>Послуги та ціни</p>
+            <h2 class="h2" id="services-title" data-lines>
+              <span class="line"><span class="line__in">Прайс без</span></span>
+              <span class="line"><span class="line__in"><em>дрібного шрифту</em></span></span>
+            </h2>
+          </div>
+          <p class="section-head__note" data-reveal>Ціни в чеських кронах. Тривалість орієнтовна. Натисніть «Обрати», і послуга сама підставиться у форму запису.</p>
+        </div>
+
+        <div class="svc-group">
+          <h3 class="svc-group__title" data-reveal><span>Манікюр</span><span class="svc-group__count">{{maniCount}}</span></h3>
+          <div class="svc-grid">{{services_mani}}</div>
+        </div>
+        <div class="svc-group">
+          <h3 class="svc-group__title" data-reveal><span>Педикюр</span><span class="svc-group__count">{{pediCount}}</span></h3>
+          <div class="svc-grid">{{services_pedi}}</div>
+        </div>
+
+        <div class="addons glass" data-reveal>
+          <div class="addons__head">
+            <h3 class="addons__title">Доповнення та <em>дрібниці</em></h3>
+            <p class="addons__note">Додаються до основної послуги. Можна вказати в коментарі до запису.</p>
+          </div>
+          <ul class="addons__list">{{addons}}</ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- 4. WORKS -->
+    <section class="works section" id="works" tabindex="-1" aria-labelledby="works-title">
+      <div class="container">
+        <div class="section-head">
+          <div>
+            <p class="eyebrow" data-reveal>Портфоліо</p>
+            <h2 class="h2" id="works-title" data-lines>
+              <span class="line"><span class="line__in">Роботи</span></span>
+              <span class="line"><span class="line__in"><em>крупним планом</em></span></span>
+            </h2>
+          </div>
+          <div class="ba" data-reveal data-ba>
+            <div class="ba__frame">
+              <div class="ba__layer ba__layer--before">{{pic_before}}</div>
+              <div class="ba__layer ba__layer--after">{{pic_after}}</div>
+              <span class="ba__handle" aria-hidden="true"><span class="ba__knob">{{icon_swap}}</span></span>
+              <span class="ba__tag ba__tag--before" aria-hidden="true">До</span>
+              <span class="ba__tag ba__tag--after" aria-hidden="true">Після</span>
+              <input class="ba__range" type="range" min="0" max="100" value="50" step="1" aria-label="Порівняння до і після: перетягніть повзунок">
+            </div>
+            <p class="ba__caption">Короткі нігті: було → стало. Потягніть повзунок.</p>
+          </div>
+        </div>
+
+        <div class="filters" role="group" aria-label="Фільтр робіт за категорією" data-reveal>{{filters}}</div>
+
+        <ul class="masonry" data-gallery>{{gallery}}</ul>
+        <p class="works__more" data-reveal>Більше робіт в Instagram: <a class="link-u" href="{{instagram}}" target="_blank" rel="noopener">{{instagramHandle}}</a></p>
+      </div>
+    </section>
+
+    <!-- 5. PROCESS (горизонтальна секція) -->
+    <section class="process" id="process" aria-labelledby="process-title">
+      <div class="process__pin">
+        <div class="process__track" tabindex="0" aria-label="Як проходить запис: гортайте вбік">
+          <div class="process__intro">
+            <p class="eyebrow">Як усе відбувається</p>
+            <h2 class="h2" id="process-title">Чотири кроки <em>до нового манікюру</em></h2>
+            <p class="process__hint" aria-hidden="true"><span class="process__hint-line"></span>гортайте</p>
+          </div>
+          {{steps}}
+          <div class="process__perks glass">
+            <h3 class="process__perks-title">Чому до <em>мене</em></h3>
+            <ul>{{perks}}</ul>
+            <a class="btn btn--primary magnetic" href="#booking"><span class="btn__label">Обрати час</span>{{icon_arrow}}</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 6. FAQ -->
+    <section class="faq section" id="faq" tabindex="-1" aria-labelledby="faq-title">
+      <div class="container faq__grid">
+        <div class="faq__head">
+          <p class="eyebrow" data-reveal>Питання й відповіді</p>
+          <h2 class="h2" id="faq-title" data-lines>
+            <span class="line"><span class="line__in">Догляд, час,</span></span>
+            <span class="line"><span class="line__in"><em>підготовка</em></span></span>
+          </h2>
+          <p class="faq__note" data-reveal>Не знайшли відповіді? Напишіть мені в <a class="link-u" href="{{instagram}}" target="_blank" rel="noopener">Instagram</a>, відповім особисто.</p>
+        </div>
+        <div class="faq__list" data-reveal>{{faq}}</div>
+      </div>
+    </section>
+
+    <!-- 7. BOOKING -->
+    <section class="booking section" id="booking" tabindex="-1" aria-labelledby="booking-title">
+      <svg class="booking__blob" viewBox="0 0 600 600" aria-hidden="true" focusable="false">
+        <defs>
+          <radialGradient id="bg-blob" cx="50%" cy="45%" r="60%">
+            <stop offset="0%" stop-color="#d8b88e" stop-opacity=".30"/>
+            <stop offset="55%" stop-color="#d8b88e" stop-opacity=".08"/>
+            <stop offset="100%" stop-color="#d8b88e" stop-opacity="0"/>
+          </radialGradient>
+        </defs>
+        <path data-blob="1" fill="url(#bg-blob)" d="M450,120 C530,190 540,300 495,385 C450,470 365,540 265,520 C165,500 85,430 75,330 C65,230 120,140 205,100 C290,60 370,50 450,120 Z"/>
+      </svg>
+
+      <div class="container">
+        <div class="booking__card glow-border" data-reveal>
+          <div class="booking__info">
+            <p class="eyebrow">Онлайн-запис</p>
+            <h2 class="h2" id="booking-title">Запишіться <em>за хвилину</em></h2>
+            <p class="booking__lead">Оберіть послугу, день і вільну годину. Я отримаю заявку одразу й підтверджу запис.</p>
+
+            <div class="summary" aria-live="polite">
+              <p class="summary__title">Ваш вибір</p>
+              <dl class="summary__list">
+                <div><dt>Послуга</dt><dd data-sum="service">—</dd></div>
+                <div><dt>Ціна</dt><dd data-sum="price">—</dd></div>
+                <div><dt>Коли</dt><dd data-sum="when">—</dd></div>
+              </dl>
+            </div>
+
+            <p class="booking__alt">Зручніше написати? <a class="link-u" href="{{instagram}}" target="_blank" rel="noopener">{{instagramHandle}}</a></p>
+          </div>
+
+          <form class="form" id="booking-form" novalidate>
+            <noscript><p class="form__alert is-visible">Для онлайн-запису увімкніть JavaScript або напишіть мені в Instagram {{instagramHandle}}.</p></noscript>
+            <div class="form__row">
+              <div class="field">
+                <label class="field__label" for="f-name">Імʼя</label>
+                <input class="field__input" id="f-name" name="name" type="text" autocomplete="name" maxlength="60" required aria-describedby="e-name" placeholder="Як до вас звертатися">
+                <p class="field__error" id="e-name" aria-live="polite"></p>
+              </div>
+              <div class="field">
+                <label class="field__label" for="f-phone">Телефон</label>
+                <input class="field__input" id="f-phone" name="phone" type="tel" autocomplete="tel" inputmode="tel" maxlength="22" required aria-describedby="e-phone" placeholder="+420 …">
+                <p class="field__error" id="e-phone" aria-live="polite"></p>
+              </div>
+            </div>
+
+            <div class="field">
+              <label class="field__label" for="f-service">Послуга</label>
+              <div class="select">
+                <select class="field__input" id="f-service" name="serviceId" required aria-describedby="e-service">
+                  <option value="">Оберіть послугу</option>
+                  {{serviceOptions}}
+                </select>
+                {{icon_chevron}}
+              </div>
+              <p class="field__error" id="e-service" aria-live="polite"></p>
+            </div>
+
+            <fieldset class="field picker" aria-describedby="e-date">
+              <legend class="field__label">Дата</legend>
+              <div class="days">
+                <button class="days__nav days__nav--prev" type="button" aria-label="Попередні дні" data-days-prev>{{icon_chevron}}</button>
+                <div class="days__scroller" data-days data-lenis-prevent>
+                  <p class="picker__state">Завантажую вільні дні…</p>
+                </div>
+                <button class="days__nav days__nav--next" type="button" aria-label="Наступні дні" data-days-next>{{icon_chevron}}</button>
+              </div>
+              <p class="field__error" id="e-date" aria-live="polite"></p>
+            </fieldset>
+
+            <fieldset class="field picker" aria-describedby="e-time">
+              <legend class="field__label">Час</legend>
+              <div class="times" data-times>
+                <p class="picker__state">Спершу оберіть дату</p>
+              </div>
+              <p class="field__error" id="e-time" aria-live="polite"></p>
+            </fieldset>
+
+            <div class="field">
+              <label class="field__label" for="f-comment">Коментар <span class="field__opt">необовʼязково</span></label>
+              <textarea class="field__input field__input--area" id="f-comment" name="comment" rows="3" maxlength="500" aria-describedby="c-comment" placeholder="Наприклад: зміцнення гелем, дизайн на двох нігтях, зняття покриття"></textarea>
+              <p class="field__counter" id="c-comment"><span data-counter>0</span> / 500</p>
+            </div>
+
+            <div class="hp" aria-hidden="true">
+              <label for="f-website">Website</label>
+              <input id="f-website" name="website" type="text" tabindex="-1" autocomplete="off">
+            </div>
+
+            <p class="form__alert" role="alert" data-alert></p>
+
+            <button class="btn btn--primary btn--block magnetic" type="submit" data-submit>
+              <span class="btn__label">Записатись</span>
+              <span class="btn__spinner" aria-hidden="true"></span>
+            </button>
+            <p class="form__legal">Імʼя і телефон потрібні лише для цього запису й не передаються третім особам.</p>
+            {{demoNote}}
+          </form>
+        </div>
+      </div>
+    </section>
+
+    <!-- 8. CONTACTS -->
+    <section class="contacts section" id="contacts" tabindex="-1" aria-labelledby="contacts-title">
+      <div class="container contacts__grid">
+        <div class="contacts__info">
+          <p class="eyebrow" data-reveal>Контакти</p>
+          <h2 class="h2" id="contacts-title" data-lines>
+            <span class="line"><span class="line__in">Чекаю вас</span></span>
+            <span class="line"><span class="line__in"><em>на Řehořova</em></span></span>
+          </h2>
+          <dl class="contacts__list" data-reveal>
+            <div class="contacts__item">
+              <dt>Адреса</dt>
+              <dd>
+                <span class="contacts__big">{{address}}</span>
+                <a class="link-u" href="https://www.google.com/maps/dir/?api=1&amp;destination={{mapQueryUrl}}" target="_blank" rel="noopener">Прокласти маршрут</a>
+              </dd>
+            </div>
+            <div class="contacts__item">
+              <dt>Години роботи</dt>
+              <dd><ul class="hours" data-hours><li class="hours__state">Завантажую графік…</li></ul></dd>
+            </div>
+            <div class="contacts__item">
+              <dt>Звʼязок</dt>
+              <dd class="socials">{{socials}}</dd>
+            </div>
+          </dl>
+        </div>
+
+        <div class="map glow-border" data-reveal data-map>
+          <div class="map__facade">
+            <svg class="map__lines" viewBox="0 0 400 300" aria-hidden="true" focusable="false" preserveAspectRatio="xMidYMid slice">
+              <path d="M-10 60 L410 120 M-10 170 L410 140 M60 -10 L120 310 M250 -10 L210 310 M-10 250 L410 230 M320 -10 L360 310 M-10 110 C120 90 260 200 410 190"/>
+            </svg>
+            <span class="map__pin" aria-hidden="true"><span></span></span>
+            <p class="map__addr">{{address}}</p>
+            <button class="btn btn--ghost btn--sm" type="button" data-map-load><span class="btn__label">Показати карту</span></button>
+            <p class="map__note">Карта Google завантажиться після натискання</p>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="container">
+      <a class="footer__word" href="#booking" aria-label="Записатись онлайн">
+        <span class="outline-text">nailsby</span><em>.nstjky</em>
+      </a>
+      <div class="footer__grid">
+        <p class="footer__text">Манікюр і педикюр у Празі 3. {{address}}.</p>
+        <nav class="footer__nav" aria-label="Навігація у футері">
+          <a class="link-u" href="#services">Послуги</a>
+          <a class="link-u" href="#works">Роботи</a>
+          <a class="link-u" href="#faq">FAQ</a>
+          <a class="link-u" href="#booking">Запис</a>
+          <a class="link-u" href="{{instagram}}" target="_blank" rel="noopener">Instagram</a>
+        </nav>
+        <a class="footer__top" href="#top">Нагору {{icon_up}}</a>
+      </div>
+      <p class="footer__copy">© {{year}} {{brand}} · {{masterName}}</p>
+    </div>
+  </footer>
+
+  <div class="fab" data-fab>
+    <ul class="fab__menu" id="fab-menu" hidden>{{fabItems}}</ul>
+    <button class="fab__btn" type="button" aria-expanded="false" aria-controls="fab-menu" aria-label="Швидкий звʼязок">
+      <span class="fab__icon fab__icon--open">{{icon_chat}}</span>
+      <span class="fab__icon fab__icon--close">{{icon_close}}</span>
+    </button>
+  </div>
+
+  <div class="lightbox" role="dialog" aria-modal="true" aria-label="Перегляд роботи" hidden data-lightbox>
+    <div class="lightbox__bg" data-lb-close></div>
+    <figure class="lightbox__figure">
+      <div class="lightbox__stage" data-lb-stage>
+        <picture data-lb-pic>
+          <source type="image/avif">
+          <source type="image/webp">
+          <img alt="" data-lb-img>
+        </picture>
+      </div>
+      <figcaption class="lightbox__cap"><span data-lb-caption></span><span class="lightbox__count" data-lb-count></span></figcaption>
+    </figure>
+    <button class="lightbox__btn lightbox__btn--close" type="button" aria-label="Закрити" data-lb-close>{{icon_close}}</button>
+    <button class="lightbox__btn lightbox__btn--prev" type="button" aria-label="Попередня робота" data-lb-prev>{{icon_chevron}}</button>
+    <button class="lightbox__btn lightbox__btn--next" type="button" aria-label="Наступна робота" data-lb-next>{{icon_chevron}}</button>
+  </div>
+
+  <div class="success" role="dialog" aria-modal="true" aria-labelledby="success-title" hidden data-success>
+    <div class="success__bg" data-success-close></div>
+    <div class="success__card glow-border">
+      <svg class="success__check" viewBox="0 0 64 64" aria-hidden="true" focusable="false">
+        <circle cx="32" cy="32" r="30"/>
+        <path d="M20 33 L28.5 41.5 L45 24"/>
+      </svg>
+      <h2 class="success__title" id="success-title">Дякую! <em data-success-name></em></h2>
+      <p class="success__text" data-success-text></p>
+      <p class="success__sub">Я підтверджу запис найближчим часом. Якщо плани зміняться, напишіть мені в Instagram.</p>
+      <div class="success__actions">
+        <a class="btn btn--primary btn--sm" href="https://calendar.google.com/" data-cal-google target="_blank" rel="noopener"><span class="btn__label">Google Календар</span></a>
+        <button class="btn btn--ghost btn--sm" type="button" data-cal-ics><span class="btn__label">Файл .ics (Apple / Outlook)</span></button>
+      </div>
+      <button class="success__close link-u" type="button" data-success-close>Готово</button>
+    </div>
+  </div>
+
+  <script type="application/json" id="site-data">{{siteData}}</script>
+</body>
+</html>
