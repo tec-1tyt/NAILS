@@ -1,21 +1,14 @@
 // Онлайн-запис: дні → години → валідація → POST /api/booking → вікно успіху + календар.
 import { gsap } from 'gsap';
 import { $, $$, api, el, finePointer, lockScroll, reduced, scrollToTarget, siteData, trapFocus, unlockScroll } from './env.js';
+import { humanDate, monthShort, t, weekdayShort } from './i18n.js';
 
-const MONTHS = ['січ', 'лют', 'бер', 'квіт', 'трав', 'черв', 'лип', 'серп', 'вер', 'жовт', 'лист', 'груд'];
-const MONTHS_GEN = ['січня', 'лютого', 'березня', 'квітня', 'травня', 'червня', 'липня', 'серпня', 'вересня', 'жовтня', 'листопада', 'грудня'];
-const WD = ['нд', 'пн', 'вт', 'ср', 'чт', 'пт', 'сб'];
-const WD_FULL = ['неділя', 'понеділок', 'вівторок', 'середа', 'четвер', 'пʼятниця', 'субота'];
 const NAME_RE = /^[\p{L}\p{M}][\p{L}\p{M} '’ʼ.-]{1,59}$/u;
 const BS = String.fromCharCode(92);
 
 const parseDate = (s) => {
   const [y, m, d] = s.split('-').map(Number);
   return { y, m, d, wd: new Date(Date.UTC(y, m - 1, d)).getUTCDay() };
-};
-const humanDate = (s) => {
-  const p = parseDate(s);
-  return `${WD_FULL[p.wd]}, ${p.d} ${MONTHS_GEN[p.m - 1]}`;
 };
 const normPhone = (v) => {
   let p = v.replace(/[\s().-]/g, '');
@@ -52,12 +45,12 @@ function buildIcs(b) {
     `DTSTAMP:${icsStamp(new Date().toISOString())}`,
     `DTSTART:${icsStamp(b.startUtc)}`,
     `DTEND:${icsStamp(b.endUtc)}`,
-    `SUMMARY:${icsText(`${b.serviceName} — ${siteData.brand || 'манікюр'}`)}`,
+    `SUMMARY:${icsText(`${b.serviceName} — ${siteData.brand || t('calSummary')}`)}`,
     `LOCATION:${icsText(siteData.address || '')}`,
-    `DESCRIPTION:${icsText(`Запис до Насті (${siteData.instagramHandle || ''}). Якщо плани зміняться, напишіть в Instagram.`)}`,
+    `DESCRIPTION:${icsText(t('calDesc').replace('{handle}', siteData.instagramHandle || ''))}`,
     'BEGIN:VALARM',
     'ACTION:DISPLAY',
-    'DESCRIPTION:Нагадування про манікюр',
+    `DESCRIPTION:${icsText(t('calAlarm'))}`,
     'TRIGGER:-PT2H',
     'END:VALARM',
     'END:VEVENT',
@@ -70,7 +63,7 @@ function googleCalUrl(b) {
     action: 'TEMPLATE',
     text: `${b.serviceName} — ${siteData.brand || ''}`,
     dates: `${icsStamp(b.startUtc)}/${icsStamp(b.endUtc)}`,
-    details: `Запис до Насті. Instagram: ${siteData.instagram || ''}`,
+    details: `${t('calDetails')}${siteData.instagram || ''}`,
     location: siteData.address || '',
   });
   return `https://calendar.google.com/calendar/render?${p}`;
@@ -110,7 +103,7 @@ export function initBooking() {
   function stateMsg(box, text, retry) {
     const p = el('p', 'picker__state', text);
     if (retry) {
-      const b = el('button', 'link-u', 'Спробувати ще раз');
+      const b = el('button', 'link-u', t('retry'));
       b.type = 'button';
       b.addEventListener('click', retry);
       p.append(b);
@@ -140,12 +133,12 @@ export function initBooking() {
     input.name = 'date';
     input.value = d.date;
     input.disabled = d.status !== 'open';
-    const note = d.status === 'full' ? 'усе зайнято' : d.status === 'closed' ? 'вихідний' : '';
-    input.setAttribute('aria-label', `${WD_FULL[p.wd]}, ${p.d} ${MONTHS_GEN[p.m - 1]}${note ? `, ${note}` : ''}`);
+    const note = d.status === 'full' ? t('noteFull') : d.status === 'closed' ? t('noteClosed') : '';
+    input.setAttribute('aria-label', `${humanDate(d.date)}${note ? `, ${note}` : ''}`);
     if (note) label.title = note[0].toUpperCase() + note.slice(1);
     const inner = el('span', 'chip__in');
     inner.setAttribute('aria-hidden', 'true');
-    inner.append(el('span', 'chip__wd', WD[p.wd]), el('span', 'chip__d', String(p.d)), el('span', 'chip__m', MONTHS[p.m - 1]));
+    inner.append(el('span', 'chip__wd', weekdayShort(d.date)), el('span', 'chip__d', String(p.d)), el('span', 'chip__m', monthShort(d.date)));
     label.append(input, inner);
     return label;
   }
@@ -154,13 +147,13 @@ export function initBooking() {
     skeletons(daysBox, 7);
     const r = await api('/api/days');
     if (!r.ok || !Array.isArray(r.data?.days)) {
-      stateMsg(daysBox, r.network ? 'Немає звʼязку із сервером.' : 'Не вдалося завантажити дні.', () => loadDays(keep));
+      stateMsg(daysBox, r.network ? t('noServer') : t('daysFail'), () => loadDays(keep));
       updateNav();
       return;
     }
     const days = r.data.days;
     if (!days.some((d) => d.status === 'open')) {
-      stateMsg(daysBox, 'Найближчим часом вільних днів немає. Напишіть мені в Instagram, і я підберу час.');
+      stateMsg(daysBox, t('noDays'));
       updateNav();
       return;
     }
@@ -170,7 +163,7 @@ export function initBooking() {
     else if (keep) {
       selDate = '';
       selTime = '';
-      stateMsg(timesBox, 'Спершу оберіть дату');
+      stateMsg(timesBox, t('pickDateFirst'));
       updateSummary();
     }
     daysBox.scrollLeft = 0;
@@ -220,10 +213,10 @@ export function initBooking() {
     input.name = 'time';
     input.value = s.time;
     input.disabled = !s.available;
-    input.setAttribute('aria-label', `${s.time}${s.available ? '' : ', зайнято'}`);
+    input.setAttribute('aria-label', `${s.time}${s.available ? '' : `, ${t('taken')}`}`);
     const inner = el('span', 'chip__in', s.time);
     inner.setAttribute('aria-hidden', 'true');
-    if (!s.available) label.title = 'Зайнято';
+    if (!s.available) label.title = t('taken');
     label.append(input, inner);
     return label;
   }
@@ -234,12 +227,12 @@ export function initBooking() {
     const r = await api(`/api/slots?date=${encodeURIComponent(date)}`);
     if (id !== slotsReq) return; // прийшла відповідь на старий запит
     if (!r.ok || !Array.isArray(r.data?.slots)) {
-      stateMsg(timesBox, r.network ? 'Немає звʼязку із сервером.' : 'Не вдалося завантажити години.', () => loadSlots(date));
+      stateMsg(timesBox, r.network ? t('noServer') : t('slotsFail'), () => loadSlots(date));
       return;
     }
     const slots = r.data.slots;
     if (!slots.some((s) => s.available)) {
-      stateMsg(timesBox, 'На цей день вільних годин уже немає. Оберіть, будь ласка, інший.');
+      stateMsg(timesBox, t('dayFull'));
       return;
     }
     timesBox.replaceChildren(...slots.map(timeChip));
@@ -261,15 +254,15 @@ export function initBooking() {
   function validate() {
     const e = {};
     const name = f.name.value.trim().replace(/\s+/g, ' ');
-    if (!name) e.name = 'Вкажіть, як до вас звертатися';
-    else if (name.length < 2) e.name = 'Імʼя закоротке';
-    else if (!NAME_RE.test(name)) e.name = 'Лише літери, пробіл, апостроф або дефіс';
+    if (!name) e.name = t('eName');
+    else if (name.length < 2) e.name = t('eNameShort');
+    else if (!NAME_RE.test(name)) e.name = t('eNameChars');
     const phone = normPhone(f.phone.value);
-    if (!phone) e.phone = 'Вкажіть телефон, щоб я могла підтвердити запис';
-    else if (!/^\+?\d{9,15}$/.test(phone)) e.phone = 'Перевірте номер: 9–15 цифр, наприклад +420 777 123 456';
-    if (!f.service.value) e.serviceId = 'Оберіть послугу';
-    if (!selDate) e.date = 'Оберіть день';
-    if (!selTime) e.time = selDate ? 'Оберіть вільну годину' : 'Спершу день, потім година';
+    if (!phone) e.phone = t('ePhone');
+    else if (!/^\+?\d{9,15}$/.test(phone)) e.phone = t('ePhoneBad');
+    if (!f.service.value) e.serviceId = t('eService');
+    if (!selDate) e.date = t('eDate');
+    if (!selTime) e.time = selDate ? t('eTime') : t('eTimeFirst');
     return e;
   }
   function showErrors(e) {
@@ -338,20 +331,22 @@ export function initBooking() {
   function setBusy(on) {
     submit.disabled = on;
     submit.setAttribute('aria-busy', String(on));
-    submitLabel.textContent = on ? 'Надсилаю…' : 'Записатись';
+    submitLabel.textContent = on ? t('sending') : t('submit');
   }
 
   function handleError(r) {
     const d = r.data || {};
     if (r.network || r.status === 0) {
-      showAlert('Не вдалося звʼязатися із сервером. Перевірте інтернет і спробуйте ще раз або напишіть мені в Instagram:');
+      showAlert(t('errNetwork'));
       return;
     }
     if (r.status === 400 && d.fields) {
       const mapped = {};
-      for (const k of Object.keys(errs)) if (d.fields[k]) mapped[k] = d.fields[k];
+      // тексти помилок сервера українські — показуємо власні, мовою сторінки
+      const byField = { name: 'eNameChars', phone: 'ePhoneBad', serviceId: 'eService', date: 'eDate', time: 'eTime' };
+      for (const k of Object.keys(errs)) if (d.fields[k]) mapped[k] = t(byField[k]);
       showErrors(mapped);
-      showAlert(d.message || 'Перевірте, будь ласка, поля форми.', false);
+      showAlert(d.error === 'slot_unavailable' ? t('errSlotUnavailable') : t('errFields'), false);
       if (d.fields.time && selDate) {
         selTime = '';
         loadSlots(selDate);
@@ -361,21 +356,25 @@ export function initBooking() {
       return;
     }
     if (r.status === 409 && d.error === 'slot_taken') {
-      showAlert(d.message || 'Цей час щойно зайняли. Оберіть інший.', false);
+      showAlert(t('errTaken'), false);
       selTime = '';
       updateSummary();
       loadSlots(selDate);
       return;
     }
+    if (r.status === 409 && d.error === 'too_many') {
+      showAlert(t('errTooMany'));
+      return;
+    }
     if (r.status === 429) {
-      showAlert(d.message || 'Забагато спроб. Зачекайте кілька хвилин або напишіть мені в Instagram:');
+      showAlert(t('errRate'));
       return;
     }
     if (r.status >= 500) {
-      showAlert('Сервер тимчасово не відповідає. Спробуйте за хвилину або напишіть мені в Instagram:');
+      showAlert(t('errServer'));
       return;
     }
-    showAlert(d.message || 'Щось пішло не так. Спробуйте ще раз або напишіть мені в Instagram:');
+    showAlert(t('errGeneric'));
   }
 
   // ---------- успіх ----------
@@ -391,10 +390,10 @@ export function initBooking() {
     const first = (b.name || '').split(' ')[0];
     const title = $('#success-title', success);
     const em = el('em', '', first ? `${first}!` : '');
-    title.replaceChildren(first ? 'Дякую, ' : 'Дякую!', ...(first ? [em] : []));
-    $('[data-success-text]', success).textContent = b.date ? `${b.serviceName || 'Запис'}: ${humanDate(b.date)} о ${b.time}.` : 'Запис отримано.';
+    title.replaceChildren(first ? `${t('thanks')}, ` : `${t('thanks')}!`, ...(first ? [em] : []));
+    $('[data-success-text]', success).textContent = b.date ? `${b.serviceName || t('booking')}: ${humanDate(b.date)} ${t('at')} ${b.time}.` : t('received');
     if (b.demo) {
-      $('.success__sub', success).textContent = 'Це демо-версія сайту: заявку не надіслано. На робочому сайті вона одразу потрапить до майстрині.';
+      $('.success__sub', success).textContent = t('demoSub');
     }
     const g = $('[data-cal-google]', success);
     const icsBtn = $('[data-cal-ics]', success);
@@ -423,7 +422,7 @@ export function initBooking() {
     const url = URL.createObjectURL(blob);
     const a = el('a');
     a.href = url;
-    a.download = 'zapys-manikur.ics';
+    a.download = t('icsFile');
     document.body.append(a);
     a.click();
     a.remove();
@@ -457,6 +456,9 @@ export function initBooking() {
     submitting = false;
     setBusy(false);
     if (r.ok && r.data?.booking) {
+      // сервер зберігає назву послуги українською (для майстрині); клієнту показуємо мовою сторінки
+      const localName = f.service.selectedOptions[0]?.textContent.split(' — ')[0];
+      if (localName) r.data.booking.serviceName = localName;
       form.reset();
       touched.clear();
       showErrors({});
@@ -464,7 +466,7 @@ export function initBooking() {
       selDate = '';
       selTime = '';
       updateSummary();
-      stateMsg(timesBox, 'Спершу оберіть дату');
+      stateMsg(timesBox, t('pickDateFirst'));
       openSuccess(r.data.booking);
       loadDays();
       return;

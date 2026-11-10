@@ -636,3 +636,13 @@ html.has-cursor .ba__range { cursor: none; }
 @media (max-width: 400px) { .eyebrow { letter-spacing: 0.16em; gap: 10px; } .eyebrow::before { width: 18px; } }
 .fab.is-visible.is-away { transform: translateY(140%); }
 .svc__num, .step__num, .about__num, .nf__code, .counter__value, .chip__d, .svc__amount, .addon__price { font-variant-numeric: lining-nums; }
+
+/* ===== Перемикач мов ===== */
+.lang { display: flex; align-items: center; gap: 2px; padding: 3px; border: 1px solid var(--line); border-radius: 999px; }
+.lang__link { display: block; padding: 6px 10px; border-radius: 999px; font-size: 12px; font-weight: 600; letter-spacing: 0.08em; line-height: 1; color: var(--muted); text-decoration: none; transition: color 0.3s, background-color 0.3s; }
+@media (hover: hover) { .lang__link:hover { color: var(--text); background: rgba(255, 255, 255, 0.05); } }
+.lang__link:active { color: var(--text); }
+.lang__link.is-active { color: var(--accent); background: rgba(216, 184, 142, 0.16); }
+.menu__lang { align-self: flex-start; margin-top: 18px; }
+.menu__lang .lang__link { padding: 10px 16px; font-size: 14px; }
+@media (max-width: 480px) { .header .lang { display: none; } }

@@ -2,6 +2,7 @@
 // Логіка слотів повторює server/schedule.js, щоб показ клієнту виглядав як справжній сайт.
 // Записи нікуди не надсилаються: лише зберігаються в памʼяті вкладки, щоб слот ставав «зайнятим».
 import { siteData, wait } from './env.js';
+import { t } from './i18n.js';
 
 const TZ = 'Europe/Prague';
 const SETTINGS = { slotMinutes: 120, leadMinutes: 120, horizonDays: 45 };
@@ -99,7 +100,7 @@ export async function demoApi(url, opts = {}) {
     const key = `${b.date} ${b.time}`;
     const slot = daySlots(b.date).slots.find((s) => s.time === b.time);
     if (!slot || !slot.available) {
-      return { ok: false, status: 409, data: { error: 'slot_taken', message: 'Ой, цей час щойно зайняли. Оберіть, будь ласка, інший.' } };
+      return { ok: false, status: 409, data: { error: 'slot_taken', message: t('errTaken') } };
     }
     booked.add(key);
     const start = localToUtc(b.date, b.time);
@@ -111,7 +112,7 @@ export async function demoApi(url, opts = {}) {
           id: 0,
           demo: true,
           name: String(b.name || '').trim(),
-          serviceName: service ? service.name : 'Запис',
+          serviceName: service ? service.name : t('booking'),
           date: b.date,
           time: b.time,
           startUtc: start.toISOString(),
@@ -121,5 +122,5 @@ export async function demoApi(url, opts = {}) {
       201,
     );
   }
-  return { ok: false, status: 404, data: { error: 'not_found', message: 'Демо-версія: цей запит недоступний' } };
+  return { ok: false, status: 404, data: { error: 'not_found', message: t('demoNotFound') } };
 }

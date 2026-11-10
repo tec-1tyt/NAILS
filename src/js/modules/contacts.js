@@ -1,7 +1,7 @@
 // Години роботи (з адмінки через API) і карта Google, що вантажиться лише після кліку.
 import { $, api, el, siteData } from './env.js';
+import { t, weekdayName } from './i18n.js';
 
-const SHORT = ['Нд', 'Пн', 'Вт', 'Ср', 'Чт', 'Пт', 'Сб'];
 const ORDER = [1, 2, 3, 4, 5, 6, 0];
 
 function todayInPrague() {
@@ -14,7 +14,7 @@ async function hours() {
   if (!list) return;
   const r = await api('/api/schedule');
   if (!r.ok || !Array.isArray(r.data?.week)) {
-    const li = el('li', 'hours__state', 'Графік уточнюйте в Instagram ');
+    const li = el('li', 'hours__state', `${t('hoursFallback')} `);
     const a = el('a', 'link-u', siteData.instagramHandle || 'Instagram');
     a.href = siteData.instagram || '#';
     a.target = '_blank';
@@ -37,13 +37,13 @@ async function hours() {
   list.replaceChildren(
     ...groups.map((g) => {
       const li = el('li');
-      const first = SHORT[g.days[0]];
-      const lastDay = SHORT[g.days[g.days.length - 1]];
+      const first = weekdayName(g.days[0]);
+      const lastDay = weekdayName(g.days[g.days.length - 1]);
       const label = g.days.length > 1 ? `${first} – ${lastDay}` : first;
-      li.append(el('span', '', label), el('span', '', g.d.enabled ? `${g.d.start} – ${g.d.end}` : 'вихідний'));
+      li.append(el('span', '', label), el('span', '', g.d.enabled ? `${g.d.start} – ${g.d.end}` : t('dayOff')));
       if (g.days.includes(today)) {
         li.classList.add('is-today');
-        li.setAttribute('aria-label', `Сьогодні: ${g.d.enabled ? `${g.d.start} – ${g.d.end}` : 'вихідний'}`);
+        li.setAttribute('aria-label', `${t('today')}: ${g.d.enabled ? `${g.d.start} – ${g.d.end}` : t('dayOff')}`);
       }
       return li;
     }),
@@ -58,8 +58,8 @@ function map() {
     if ($('iframe', box)) return;
     const q = encodeURIComponent(siteData.mapQuery || siteData.address || '');
     const frame = el('iframe');
-    frame.src = `https://www.google.com/maps?q=${q}&hl=uk&z=16&output=embed`;
-    frame.title = `Карта: ${siteData.address || ''}`;
+    frame.src = `https://www.google.com/maps?q=${q}&hl=${siteData.lang || 'uk'}&z=16&output=embed`;
+    frame.title = `${t('mapTitle')}: ${siteData.address || ''}`;
     frame.loading = 'lazy';
     frame.referrerPolicy = 'no-referrer-when-downgrade';
     frame.allowFullscreen = true;

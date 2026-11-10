@@ -2,6 +2,7 @@
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { $, $$, lockScroll, reduced, scrollToTarget, trapFocus, unlockScroll } from './env.js';
+import { t } from './i18n.js';
 
 function headerAndProgress() {
   const header = $('[data-header]');
@@ -78,7 +79,7 @@ function mobileMenu() {
     menu.hidden = false;
     document.body.classList.add('menu-open');
     burger.setAttribute('aria-expanded', 'true');
-    burger.setAttribute('aria-label', 'Закрити меню');
+    burger.setAttribute('aria-label', t('menuClose'));
     lockScroll();
     if (!reduced) {
       gsap.fromTo('.menu__bg', { opacity: 0 }, { opacity: 1, duration: 0.4 });
@@ -92,7 +93,7 @@ function mobileMenu() {
     open = false;
     document.body.classList.remove('menu-open');
     burger.setAttribute('aria-expanded', 'false');
-    burger.setAttribute('aria-label', 'Відкрити меню');
+    burger.setAttribute('aria-label', t('menuOpen'));
     document.removeEventListener('keydown', onKey);
     unlockScroll();
     // ховаємо по таймеру, а не по onComplete: стан не залежить від того, чи крутиться rAF
